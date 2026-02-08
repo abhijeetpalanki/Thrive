@@ -1,16 +1,26 @@
 import type { Route } from "./+types/home";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { resumes } from "~/constants";
 import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
+import { usePuterStore } from "~/lib/puter";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Thrive" },
+    { title: "Thrive | Home" },
     { name: "description", content: "AI Resume Analyzer Assistant" },
   ];
 }
 
 export default function Home() {
+  const { auth } = usePuterStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isAuthenticated) navigate("/auth?next=/");
+  }, [auth.isAuthenticated]);
+
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <Navbar />
