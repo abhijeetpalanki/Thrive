@@ -1,3 +1,4 @@
+import type { Route } from "./+types/home";
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 import FileUploader from "~/components/FileUploader";
@@ -6,6 +7,13 @@ import { prepareInstructions } from "~/constants";
 import { convertPdfToImage } from "~/lib/pdf2Img";
 import { usePuterStore } from "~/lib/puter";
 import { generateUUID } from "~/lib/utils";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Thrive | Upload" },
+    { name: "description", content: "Upload Resume" },
+  ];
+}
 
 const upload = () => {
   const { auth, isLoading, fs, ai, kv } = usePuterStore();
